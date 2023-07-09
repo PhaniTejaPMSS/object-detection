@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepFake Detector</title>
+</head>
+<body>
+    <div>
+        <input type="file" id="video-input" accept="video/*">
+        <button onclick="processVideo()">Process Video</button>
+    </div>
+
+    <div id="video-container">
+        <img id="video-frame" src="#" alt="Video Frame">
+    </div>
+
+    <script>
+        // Function to update the video frame
+        function updateVideoFrame() {
+            var videoFrame = document.getElementById('video-frame');
+            videoFrame.src = '/process_video';  // URL to the video processing view
+        }
+
+        // Function to process the selected video
+        function processVideo() {
+            var input = document.getElementById('video-input');
+            var file = input.files[0];
+
+            if (file) {
+                var formData = new FormData();
+                formData.append('video', file);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/upload_video', true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Video processing is complete
+                        updateVideoFrame();
+                    }
+                };
+                xhr.send(formData);
+            }
+        }
+
+        // Call the updateVideoFrame function when the page loads
+        window.onload = function () {
+            updateVideoFrame();
+        };
+    </script>
+</body>
+</html>
