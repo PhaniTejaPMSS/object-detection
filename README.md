@@ -1,2 +1,2 @@
 # deepfake-detection
-A Deep Learning Model that can detect morphed faces in videos
+A Deep Learning Model that can detect and identify various objects in videos
